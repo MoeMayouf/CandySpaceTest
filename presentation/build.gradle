@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -33,10 +35,67 @@ android {
 
 dependencies {
 
+    //TODO: RESOLVE DEPENDENCIES PER LAYER
+
+    //ANDROIDX
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
+    implementation("androidx.fragment:fragment-ktx:1.3.6")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
+
+    //TESTING
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
+    androidTestImplementation('androidx.test:runner:1.4.0')
+    androidTestImplementation('androidx.test:rules:1.4.0')
+    androidTestImplementation('android.arch.core:core-testing:2.1.0')
+    testImplementation 'org.junit.platform:junit-platform-runner:1.8.0'
+    testImplementation 'com.jraska.livedata:testing-ktx:1.2.0'
+
+    //MOCKITO
+    testImplementation 'org.mockito:mockito-core:3.6.28'
+    testImplementation 'org.mockito:mockito-inline:3.6.28'
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+
+    //LIFECYCLE
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    //noinspection LifecycleAnnotationProcessorWithJava8
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+
+    //NAVIGATION
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+
+    //COROUTINES
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
+
+    //DAGGER
+    implementation 'com.google.dagger:dagger-android:2.35.1'
+    implementation 'com.google.dagger:dagger-android-support:2.24'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.24'
+
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.24'
+
+    //RETROFIT & OKHTTP
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation("com.squareup.okhttp3:mockwebserver:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
+
+    //TIMBER
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //PICASSO
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //RECYCLERVIEW
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+
+    implementation 'com.google.code.gson:gson:2.8.8'
+
 }
