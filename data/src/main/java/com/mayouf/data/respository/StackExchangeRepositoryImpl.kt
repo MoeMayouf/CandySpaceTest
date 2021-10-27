@@ -7,8 +7,9 @@ import com.mayouf.domain.repository.StackExchangeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.supervisorScope
+import javax.inject.Inject
 
-class StackExchangeRepositoryImpl constructor(
+class StackExchangeRepositoryImpl @Inject constructor(
     private val remoteDataStore: StackExchangeRemoteDataStore,
     private val stackExchangeMapper: DataStackExchangeToDomainStackExchangeMapper
 ) : StackExchangeRepository {
