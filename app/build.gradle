@@ -24,6 +24,10 @@ android {
         }
     }
     buildToolsVersion '30.0.2'
+
+    kapt {
+        generateStubs = true
+    }
 }
 
 dependencies {
@@ -72,6 +76,8 @@ dependencies {
     implementation 'com.google.dagger:dagger-android:2.35.1'
     implementation 'com.google.dagger:dagger-android-support:2.24'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.24'
+    kapt "com.google.dagger:dagger-compiler:2.37"
+    kapt "com.google.dagger:dagger-android-processor:2.24"
 
     annotationProcessor 'com.google.dagger:dagger-compiler:2.24'
 
@@ -94,5 +100,6 @@ dependencies {
 
     implementation project(":data")
     implementation project(":domain")
+    implementation project(":presentation")
 
 }
