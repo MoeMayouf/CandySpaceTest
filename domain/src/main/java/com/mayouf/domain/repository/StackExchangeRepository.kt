@@ -4,5 +4,5 @@ import com.mayouf.domain.entities.DomainStackExchange
 import kotlinx.coroutines.flow.Flow
 
 interface StackExchangeRepository {
-    suspend fun getStackExchangeUsers(order: String, sort: String, name: String): Flow<DomainStackExchange>
+    suspend fun getStackExchangeUsers(order: String, site: String, name: String): Flow<DomainStackExchange>
 }

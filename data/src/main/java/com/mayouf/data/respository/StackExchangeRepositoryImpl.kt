@@ -4,6 +4,7 @@ import com.mayouf.data.datastore.StackExchangeRemoteDataStore
 import com.mayouf.data.mapper.DataStackExchangeToDomainStackExchangeMapper
 import com.mayouf.domain.entities.DomainStackExchange
 import com.mayouf.domain.repository.StackExchangeRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.supervisorScope
@@ -15,10 +16,10 @@ class StackExchangeRepositoryImpl @Inject constructor(
 ) : StackExchangeRepository {
     override suspend fun getStackExchangeUsers(
         order: String,
-        sort: String,
+        site: String,
         name: String
     ): Flow<DomainStackExchange> = supervisorScope {
-        remoteDataStore.getStackExchangeUsers(order, sort, name)
+        remoteDataStore.getStackExchangeUsers(order, site, name)
             .map { stackExchangeMapper.toDomainModel(it) }
     }
 }

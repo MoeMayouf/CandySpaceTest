@@ -6,10 +6,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface StackExchangeApiService {
-    @GET("2.3/users")
+    @GET("users")
     suspend fun getUsers(
         @Query("order") order: String,
-        @Query("sort") sort: String,
+        @Query("site") site: String,
         @Query("inname") name: String
     ): Flow<DataStackExchange>
 }

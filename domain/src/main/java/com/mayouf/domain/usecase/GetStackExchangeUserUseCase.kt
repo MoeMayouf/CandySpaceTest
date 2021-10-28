@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface GetStackExchangeUserUseCase {
-    suspend fun execute(order: String, sort: String, name: String): Flow<DomainStackExchange>
+    suspend fun execute(order: String, site: String, name: String): Flow<DomainStackExchange>
 }
 
 class GetStackExchangeUserUseCaseImpl @Inject constructor(
@@ -14,7 +14,7 @@ class GetStackExchangeUserUseCaseImpl @Inject constructor(
 ) : GetStackExchangeUserUseCase {
     override suspend fun execute(
         order: String,
-        sort: String,
+        site: String,
         name: String
-    ): Flow<DomainStackExchange> = repository.getStackExchangeUsers(order, sort, name)
+    ): Flow<DomainStackExchange> = repository.getStackExchangeUsers(order, site, name)
 }

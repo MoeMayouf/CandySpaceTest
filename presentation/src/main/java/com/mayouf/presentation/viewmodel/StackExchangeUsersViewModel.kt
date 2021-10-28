@@ -1,5 +1,6 @@
 package com.mayouf.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -18,7 +19,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 abstract class StackExchangeUsersViewModel : ViewModel() {
-    abstract fun stackExchangeUsers(order: String, sort: String, name: String)
+    abstract fun stackExchangeUsers(order: String, site: String, name: String)
 
     abstract val stackExchangeUsers: LiveData<UiStackExchange>
     abstract val loadingStackExchangeUsers: LiveData<Boolean>
@@ -46,15 +47,16 @@ class StackExchangeUsersViewModelImpl @Inject constructor(
         _loadingSTackExchangeUsers.value = false
     }
 
-    override fun stackExchangeUsers(order: String, sort: String, name: String) {
+    override fun stackExchangeUsers(order: String, site: String, name: String) {
         viewModelScope.launch(errorHandler) {
             _loadingSTackExchangeUsers.value = true
             try {
-                getStackExchangeUserUseCase.execute(order, sort, name)
+                getStackExchangeUserUseCase.execute(order, site, name)
                     .catch { throwable -> handleExceptions(throwable) }
                     .collect { value: DomainStackExchange ->
+                        Log.i("Something", "Check8")
                         val uiModel = domainToUiMapper.toUiModel(value)
-                        _stackExchangeUsers.postValue(uiModel)
+                        _stackExchangeUsers.value = uiModel
                         _loadingSTackExchangeUsers.value = false
                     }
             } catch (throwable: Throwable) {
@@ -64,7 +66,7 @@ class StackExchangeUsersViewModelImpl @Inject constructor(
     }
 
     private fun handleExceptions(throwable: Throwable) {
-        Timber.e(throwable)
+        Log.e("Throwable", throwable.stackTraceToString())
         _errorStackExchangeUsers.postValue(eventOf(Unit))
         _loadingSTackExchangeUsers.value = false
     }

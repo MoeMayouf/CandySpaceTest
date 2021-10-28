@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import com.mayouf.candyspace.MainActivity
 import com.mayouf.candyspace.ui.StackExchangeFragment
 import com.mayouf.presentation.viewmodel.StackExchangeUsersViewModel
+import com.mayouf.presentation.viewmodel.StackExchangeUsersViewModelImpl
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,5 +28,5 @@ internal abstract class MainActivityModule {
     @IntoMap
     @ViewModelKey(StackExchangeUsersViewModel::class)
     @ExperimentalCoroutinesApi
-    abstract fun stackViewModel(stackViewModel: StackExchangeUsersViewModel): ViewModel
+    abstract fun stackExchangeUsersViewModel(stackViewModel: StackExchangeUsersViewModelImpl): ViewModel
 }
