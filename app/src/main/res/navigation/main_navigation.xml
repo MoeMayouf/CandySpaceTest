@@ -8,6 +8,14 @@
         app:startDestination="@+id/users">
         <fragment
             android:id="@+id/users"
-            android:name="com.mayouf.candyspace.ui.StackExchangeFragment" />
+            android:name="com.mayouf.candyspace.ui.StackExchangeFragment">
+            <action
+                android:id="@+id/action_detail"
+                app:destination="@id/userDetail" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/userDetail"
+            android:name="com.mayouf.candyspace.ui.StackExchangeUserDetailsFragment" />
     </navigation>
 </navigation>

@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.mayouf.candyspace.MainActivity
 import com.mayouf.candyspace.ui.StackExchangeFragment
+import com.mayouf.candyspace.ui.StackExchangeUserDetailsFragment
 import com.mayouf.presentation.viewmodel.StackExchangeUsersViewModel
 import com.mayouf.presentation.viewmodel.StackExchangeUsersViewModelImpl
 import dagger.Binds
@@ -23,6 +24,11 @@ internal abstract class MainActivityModule {
     @IntoMap
     @FragmentKey(StackExchangeFragment::class)
     abstract fun stackExchangeFragment(stackExchangeFragment: StackExchangeFragment): Fragment
+
+    @Binds
+    @IntoMap
+    @FragmentKey(StackExchangeUserDetailsFragment::class)
+    abstract fun stackExchangeUserDetailsFragment(stackExchangeFragment: StackExchangeUserDetailsFragment): Fragment
 
     @Binds
     @IntoMap

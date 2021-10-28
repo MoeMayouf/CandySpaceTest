@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mayouf.candyspace.R
 import com.mayouf.candyspace.databinding.FragmentStackExchangeBinding
@@ -18,6 +19,10 @@ import com.mitteloupe.solid.recyclerview.SolidAdapter
 import timber.log.Timber
 import javax.inject.Inject
 
+interface ClickListener {
+    fun onItemClicked(userDetailItems: UiItems)
+}
+
 class StackExchangeFragment @Inject constructor(
     viewModelFactory: ViewModelProvider.Factory
 ) : Fragment(R.layout.fragment_stack_exchange) {
@@ -25,6 +30,15 @@ class StackExchangeFragment @Inject constructor(
 
     private lateinit var binding: FragmentStackExchangeBinding
     private var usersAdapter: SolidAdapter<UsersViewHolder, UiItems>? = null
+
+    private val clickListener = object : ClickListener {
+        override fun onItemClicked(userDetailItems: UiItems) {
+            val bundle = Bundle()
+            bundle.putParcelable("userData", userDetailItems)
+            Navigation.findNavController(requireView()).navigate(R.id.userDetail, bundle)
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +70,7 @@ class StackExchangeFragment @Inject constructor(
         usersAdapter = SolidAdapter(
             LaunchViewProvider(layoutInflater),
             { view, _ -> UsersViewHolder(view) },
-            LaunchViewBinder(context = requireContext())
+            LaunchViewBinder(context = requireContext(), clickListener = clickListener)
         )
         binding.usersRecyclerView.apply {
             adapter = usersAdapter
@@ -78,6 +92,7 @@ class StackExchangeFragment @Inject constructor(
     private fun setViewModelObservers() {
         viewModel.stackExchangeUsers.observe(viewLifecycleOwner, { launches ->
             bindUsers(launches.items)
+            setUsersErrorViewsVisibility(false)
         })
         viewModel.loadingStackExchangeUsers.observe(viewLifecycleOwner, { show ->
 
