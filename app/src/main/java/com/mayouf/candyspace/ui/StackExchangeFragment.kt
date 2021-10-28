@@ -1,7 +1,6 @@
 package com.mayouf.candyspace.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,13 +48,11 @@ class StackExchangeFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("Something", "Check6")
         setupRecyclerView()
         setViewModelObservers()
     }
 
     private fun setupRecyclerView() {
-        Log.i("Something", "Check5")
         usersAdapter = SolidAdapter(
             LaunchViewProvider(layoutInflater),
             { view, _ -> UsersViewHolder(view) },
@@ -68,7 +65,6 @@ class StackExchangeFragment @Inject constructor(
     }
 
     private fun bindUsers(launchesUiModel: List<UiItems>?) {
-        Log.i("Something", "Check7")
         launchesUiModel?.let { launches ->
             usersAdapter?.setItems(launches)
             setLaunchesErrorViewsVisibility(false)
@@ -76,15 +72,11 @@ class StackExchangeFragment @Inject constructor(
     }
 
     private fun setLaunchesErrorViewsVisibility(show: Boolean) {
-        Log.i("Something", "Check4")
         binding.errorDescription.isVisible = show
     }
 
     private fun setViewModelObservers() {
         viewModel.stackExchangeUsers.observe(viewLifecycleOwner, { launches ->
-            Log.i("Something", "Check3")
-            Timber.d("launches.items[0].displayName")
-            Timber.d(launches.items[0].displayName)
             bindUsers(launches.items)
         })
         viewModel.loadingStackExchangeUsers.observe(viewLifecycleOwner, { show ->
@@ -97,13 +89,10 @@ class StackExchangeFragment @Inject constructor(
     }
 
     private fun setUsersErrorViewsVisibility(show: Boolean) {
-        Log.i("Something", "Check2")
-
         binding.usersErrorDescription.isVisible = show
     }
 
     private fun setUsersViewsVisibility(show: Boolean) {
-        Log.i("Something", "Check 1")
         binding.usersRecyclerView.isVisible = show
     }
 

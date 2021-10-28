@@ -10,6 +10,8 @@ import com.mayouf.data.datastore.StackExchangeRemoteDataStore
 import com.mayouf.data.datastore.StackExchangeRemoteDataStoreImpl
 import com.mayouf.data.mapper.DataStackExchangeToDomainStackExchangeMapper
 import com.mayouf.data.mapper.DataStackExchangeToDomainStackExchangeMapperImpl
+import com.mayouf.data.mapper.ResponseStackExchangeToDataStackExchangeMapper
+import com.mayouf.data.mapper.ResponseStackExchangeToDataStackExchangeMapperImpl
 import com.mayouf.data.respository.StackExchangeRepositoryImpl
 import com.mayouf.domain.repository.StackExchangeRepository
 import dagger.Module
@@ -27,8 +29,10 @@ class ApiModule {
     @Singleton
     @Provides
     fun provideStackExchangeRemoteDataStore(
-        apiService: StackExchangeApiService
-    ): StackExchangeRemoteDataStore = StackExchangeRemoteDataStoreImpl(apiService)
+        apiService: StackExchangeApiService,
+        responseStackExchangeToDataStackExchangeMapper: ResponseStackExchangeToDataStackExchangeMapper
+    ): StackExchangeRemoteDataStore =
+        StackExchangeRemoteDataStoreImpl(apiService, responseStackExchangeToDataStackExchangeMapper)
 
     @Provides
     @Singleton
@@ -73,6 +77,11 @@ class ApiModule {
         DataStackExchangeToDomainStackExchangeMapperImpl()
 
     @Provides
+    @Reusable
+    fun provideResponseStackExchangeToDataStackExchangeMapper(): ResponseStackExchangeToDataStackExchangeMapper =
+        ResponseStackExchangeToDataStackExchangeMapperImpl()
+
+    @Provides
     @Singleton
     fun provideStackExchangeRepository(
         spaceXRemoteSource: StackExchangeRemoteDataStore,
@@ -98,7 +107,7 @@ class ApiModule {
             retrofitBuilder: Retrofit.Builder, gson: Gson
         ): Retrofit = retrofitBuilder
             .client(httpBuilder.build())
-            .addConverterFactory( GsonConverterFactory.create( gson ) )
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 }

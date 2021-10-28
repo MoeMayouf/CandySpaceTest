@@ -1,8 +1,8 @@
-package com.mayouf.data.entities
+package com.mayouf.data.entities.response
 
 import com.google.gson.annotations.SerializedName
 
-data class DataBadgeCounts(
+data class ResponseBadgeCounts(
 
     @SerializedName("bronze") val bronze: Int,
     @SerializedName("silver") val silver: Int,

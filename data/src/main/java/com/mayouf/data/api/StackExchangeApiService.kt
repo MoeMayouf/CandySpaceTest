@@ -1,7 +1,6 @@
 package com.mayouf.data.api
 
-import com.mayouf.data.entities.DataStackExchange
-import kotlinx.coroutines.flow.Flow
+import com.mayouf.data.entities.response.ResponseStackExchange
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,5 +10,5 @@ interface StackExchangeApiService {
         @Query("order") order: String,
         @Query("site") site: String,
         @Query("inname") name: String
-    ): Flow<DataStackExchange>
+    ): ResponseStackExchange
 }

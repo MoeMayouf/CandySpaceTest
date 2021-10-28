@@ -1,7 +1,7 @@
 package com.mayouf.data.mapper
 
-import com.mayouf.data.entities.DataItems
-import com.mayouf.data.entities.DataStackExchange
+import com.mayouf.data.entities.data.DataItems
+import com.mayouf.data.entities.data.DataStackExchange
 import com.mayouf.domain.entities.DomainBadgeCounts
 import com.mayouf.domain.entities.DomainItems
 import com.mayouf.domain.entities.DomainStackExchange
@@ -30,7 +30,7 @@ class DataStackExchangeToDomainStackExchangeMapperImpl @Inject constructor() :
         reputation = dataItems.reputation,
         creationDate = dataItems.creationDate,
         userId = dataItems.userId,
-        location = dataItems.location,
+        location = dataItems.location  ?: "",
         profileImage = dataItems.profileImage,
         displayName = dataItems.displayName
     )

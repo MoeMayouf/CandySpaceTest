@@ -1,6 +1,6 @@
 package com.mayouf.data.mapper
 
-import com.mayouf.data.entities.DataStackExchange
+import com.mayouf.data.entities.data.DataStackExchange
 import com.mayouf.domain.entities.DomainStackExchange
 import junit.framework.Assert.assertEquals
 import org.junit.Before
@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
-class DataStackExchangeToDomainStackExchangeMapperImplTest(
+class ResponseStackExchangeToDomainStackExchangeMapperImplTest(
     private val dataStackExchange: DataStackExchange,
     private val domainStackExchange: DomainStackExchange
 ) {
