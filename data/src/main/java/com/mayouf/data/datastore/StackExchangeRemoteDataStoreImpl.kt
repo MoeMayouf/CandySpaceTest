@@ -23,7 +23,7 @@ class StackExchangeRemoteDataStoreImpl @Inject constructor(
         name: String
     ): Flow<DataStackExchange> {
         try {
-            responseMapper.toDataModel(apiService.getUsers(order, site, name))
+            responseMapper.toDataModel(apiService.getUsers(order, site, name, "name", "20"))
                 .let { companyInfoRepositoryModel ->
                     _stackExchangeUsersSharedFlow.emit(companyInfoRepositoryModel)
                 }

@@ -9,6 +9,8 @@ interface StackExchangeApiService {
     suspend fun getUsers(
         @Query("order") order: String,
         @Query("site") site: String,
-        @Query("inname") name: String
+        @Query("inname") name: String,
+        @Query("sort") sort: String,
+        @Query("pagesize") pagesize: String
     ): ResponseStackExchange
 }

@@ -19,7 +19,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 abstract class StackExchangeUsersViewModel : ViewModel() {
-    abstract fun stackExchangeUsers(order: String, site: String, name: String)
+    abstract fun stackExchangeUsers(name: String)
 
     abstract val stackExchangeUsers: LiveData<UiStackExchange>
     abstract val loadingStackExchangeUsers: LiveData<Boolean>
@@ -31,12 +31,12 @@ class StackExchangeUsersViewModelImpl @Inject constructor(
     private val domainToUiMapper: DomainStackExchangeToUiStackExchangeMapper
 ) : StackExchangeUsersViewModel() {
 
-    private val _loadingSTackExchangeUsers = MediatorLiveData<Boolean>()
+    private val _loadingStackExchangeUsers = MediatorLiveData<Boolean>()
     private val _stackExchangeUsers = MediatorLiveData<UiStackExchange>()
     private val _errorStackExchangeUsers = MediatorLiveData<Event<Unit>>()
 
     override val loadingStackExchangeUsers: LiveData<Boolean>
-        get() = _loadingSTackExchangeUsers
+        get() = _loadingStackExchangeUsers
     override val stackExchangeUsers: LiveData<UiStackExchange>
         get() = _stackExchangeUsers
     override val errorStackExchangeUsers: LiveData<Event<Unit>>
@@ -44,20 +44,19 @@ class StackExchangeUsersViewModelImpl @Inject constructor(
 
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
         Timber.e(exception)
-        _loadingSTackExchangeUsers.value = false
+        _loadingStackExchangeUsers.value = false
     }
 
-    override fun stackExchangeUsers(order: String, site: String, name: String) {
+    override fun stackExchangeUsers(name: String) {
         viewModelScope.launch(errorHandler) {
-            _loadingSTackExchangeUsers.value = true
+            _loadingStackExchangeUsers.value = true
             try {
-                getStackExchangeUserUseCase.execute(order, site, name)
+                getStackExchangeUserUseCase.execute("asc", "stackoverflow", name)
                     .catch { throwable -> handleExceptions(throwable) }
                     .collect { value: DomainStackExchange ->
-                        Log.i("Something", "Check8")
                         val uiModel = domainToUiMapper.toUiModel(value)
                         _stackExchangeUsers.value = uiModel
-                        _loadingSTackExchangeUsers.value = false
+                        _loadingStackExchangeUsers.value = false
                     }
             } catch (throwable: Throwable) {
                 handleExceptions(throwable)
@@ -68,7 +67,7 @@ class StackExchangeUsersViewModelImpl @Inject constructor(
     private fun handleExceptions(throwable: Throwable) {
         Log.e("Throwable", throwable.stackTraceToString())
         _errorStackExchangeUsers.postValue(eventOf(Unit))
-        _loadingSTackExchangeUsers.value = false
+        _loadingStackExchangeUsers.value = false
     }
 
 

@@ -25,7 +25,13 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class ApiModule {
+class ApiModule(
+    private val baseUrlOverride: String? = null
+) {
+    @Provides
+    @BaseUrl
+    fun provideBaseUrl() = baseUrlOverride ?: "https://api.stackexchange.com/2.3/"
+
     @Singleton
     @Provides
     fun provideStackExchangeRemoteDataStore(
@@ -38,8 +44,9 @@ class ApiModule {
     @Singleton
     fun provideRetrofitBuilder(
         gsonConverterFactory: GsonConverterFactory,
+        @BaseUrl baseUrl: String
     ) = Retrofit.Builder()
-        .baseUrl("https://api.stackexchange.com/2.3/")
+        .baseUrl(baseUrl)
         .addConverterFactory(gsonConverterFactory)
 
     @Provides

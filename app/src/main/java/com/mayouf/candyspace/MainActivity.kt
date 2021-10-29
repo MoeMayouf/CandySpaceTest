@@ -36,6 +36,5 @@ class MainActivity : DaggerAppCompatActivity() {
         ) as NavHostFragment
 
         navController = navHostFragment.navController
-        binding.bottomNavigation.setupWithNavController(navController)
     }
 }

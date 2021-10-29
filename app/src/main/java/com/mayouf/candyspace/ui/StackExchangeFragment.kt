@@ -1,9 +1,12 @@
 package com.mayouf.candyspace.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,7 +19,7 @@ import com.mayouf.presentation.model.UiItems
 import com.mayouf.presentation.utils.observeEvent
 import com.mayouf.presentation.viewmodel.StackExchangeUsersViewModel
 import com.mitteloupe.solid.recyclerview.SolidAdapter
-import timber.log.Timber
+import kotlinx.android.synthetic.main.fragment_stack_exchange.*
 import javax.inject.Inject
 
 interface ClickListener {
@@ -46,13 +49,9 @@ class StackExchangeFragment @Inject constructor(
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentStackExchangeBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = getString(R.string.app_name)
+        (activity as AppCompatActivity?)!!.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Timber.d("Resume")
-        viewModel.stackExchangeUsers("desc", "stackoverflow", "mohammed")
     }
 
     override fun onPause() {
@@ -64,6 +63,20 @@ class StackExchangeFragment @Inject constructor(
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setViewModelObservers()
+        binding.btnSearch.setOnClickListener {
+            val searchString = binding.etSearchBox.text.toString()
+            viewModel.stackExchangeUsers(searchString)
+            hideKeyboard()
+        }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(
+            requireActivity().currentFocus!!.windowToken,
+            0
+        )
     }
 
     private fun setupRecyclerView() {
@@ -81,12 +94,9 @@ class StackExchangeFragment @Inject constructor(
     private fun bindUsers(launchesUiModel: List<UiItems>?) {
         launchesUiModel?.let { launches ->
             usersAdapter?.setItems(launches)
-            setLaunchesErrorViewsVisibility(false)
+            setUsersErrorViewsVisibility(false)
+            setUsersViewsVisibility(true)
         }
-    }
-
-    private fun setLaunchesErrorViewsVisibility(show: Boolean) {
-        binding.errorDescription.isVisible = show
     }
 
     private fun setViewModelObservers() {
@@ -95,11 +105,11 @@ class StackExchangeFragment @Inject constructor(
             setUsersErrorViewsVisibility(false)
         })
         viewModel.loadingStackExchangeUsers.observe(viewLifecycleOwner, { show ->
-
+            setUsersErrorViewsVisibility(false)
+            progressBar.isVisible = show
         })
         viewModel.errorStackExchangeUsers.observeEvent(this) {
             setUsersErrorViewsVisibility(true)
-            setUsersViewsVisibility(false)
         }
     }
 
