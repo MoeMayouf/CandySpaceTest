@@ -11,7 +11,7 @@ import com.mayouf.candyspace.R
 import com.mayouf.candyspace.utils.RecyclerViewItemCountAssertion
 import org.hamcrest.CoreMatchers
 
-fun launchesFragmentRobot(func: StackExchangeFragmentRobot.() -> Unit) =
+fun stackExchangeFragmentRobot(func: StackExchangeFragmentRobot.() -> Unit) =
     StackExchangeFragmentRobot().apply { func() }
 
 class StackExchangeFragmentRobot {
@@ -30,7 +30,7 @@ class StackExchangeFragmentRobot {
     }
 
     fun assertProgressBarIsDisplayed() = apply {
-        Espresso.onView(launchesAnimationViewMatcher).check(
+        Espresso.onView(animationViewMatcher).check(
             ViewAssertions.matches(
                 ViewMatchers.isDisplayed()
             )
@@ -61,14 +61,14 @@ class StackExchangeFragmentRobot {
         )
     }
 
-    fun clickLaunchesTab() = apply {
+    fun clickUsersAction() = apply {
         Espresso.onView(editSearchViewMatcher).perform(ViewActions.typeText("mohammed"))
         Espresso.onView(searchButtonViewMatcher).perform(ViewActions.click())
 
     }
 
     fun assertBodyErrorDisplayed() = apply {
-        Espresso.onView(launchesErrorViewMatcher)
+        Espresso.onView(errorViewMatcher)
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
@@ -80,10 +80,10 @@ class StackExchangeFragmentRobot {
 
         private val editSearchViewMatcher = withId(R.id.etSearchBox)
 
-        private val launchesAnimationViewMatcher = withId(R.id.progressBar)
+        private val animationViewMatcher = withId(R.id.progressBar)
 
         private val searchButtonViewMatcher = withId(R.id.btnSearch)
 
-        private val launchesErrorViewMatcher = withId(R.id.users_error_description)
+        private val errorViewMatcher = withId(R.id.users_error_description)
     }
 }

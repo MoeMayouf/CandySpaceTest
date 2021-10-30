@@ -81,9 +81,9 @@ class StackExchangeFragment @Inject constructor(
 
     private fun setupRecyclerView() {
         usersAdapter = SolidAdapter(
-            LaunchViewProvider(layoutInflater),
+            UsersProvider(layoutInflater),
             { view, _ -> UsersViewHolder(view) },
-            LaunchViewBinder(context = requireContext(), clickListener = clickListener)
+            UsersViewBinder(context = requireContext(), clickListener = clickListener)
         )
         binding.usersRecyclerView.apply {
             adapter = usersAdapter

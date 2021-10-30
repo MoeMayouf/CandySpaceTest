@@ -8,7 +8,8 @@ import com.mayouf.data.di.ApiModule
 
 
 class TestConfigurationBuilder {
-    private val baseUrl: String = "https://127.0.0.1:8080"
+    val port = 8080
+    private val baseUrl: String = "http://127.0.0.1:${port}"
 
     fun inject() {
         appComponent {

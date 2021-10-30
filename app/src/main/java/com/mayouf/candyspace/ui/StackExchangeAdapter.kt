@@ -16,7 +16,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_launch.view.*
 import timber.log.Timber
 
-class LaunchViewProvider(
+class UsersProvider(
     layoutInflater: LayoutInflater
 ) : InflatedViewProvider(layoutInflater, R.layout.item_launch)
 
@@ -27,7 +27,7 @@ class UsersViewHolder(override val containerView: View) : RecyclerView.ViewHolde
     val cardContainer: CardView = containerView.card_container
 }
 
-class LaunchViewBinder(
+class UsersViewBinder(
     private val context: Context,
     private val clickListener: ClickListener
 ) : SimpleViewBinder<UsersViewHolder, UiItems>() {

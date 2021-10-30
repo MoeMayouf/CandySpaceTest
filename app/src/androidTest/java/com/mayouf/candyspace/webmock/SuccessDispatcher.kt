@@ -8,7 +8,7 @@ import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.RecordedRequest
 
-const val USERS = "/"
+const val USERS = "/users"
 const val USERS_SUCCESS = "users.json"
 
 class SuccessDispatcher(
@@ -23,7 +23,6 @@ class SuccessDispatcher(
 
         val pathWithoutQueryParams = Uri.parse(request.path).path ?: return errorResponse
         val responseFile = responseFilesByPath[pathWithoutQueryParams]
-
         return if (responseFile != null) {
             val responseBody = asset(context, responseFile)
             MockResponse().setResponseCode(200).setBody(responseBody)

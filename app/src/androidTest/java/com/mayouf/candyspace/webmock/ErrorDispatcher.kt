@@ -6,6 +6,6 @@ import okhttp3.mockwebserver.RecordedRequest
 
 class ErrorDispatcher : Dispatcher() {
     override fun dispatch(request: RecordedRequest): MockResponse {
-        return MockResponse().setResponseCode(400)
+        return MockResponse().setResponseCode(404)
     }
 }

@@ -44,8 +44,8 @@ class StackExchangeFragmentTest {
                 View.GONE
             )
 
-        launchesFragmentRobot {
-            clickLaunchesTab()
+        stackExchangeFragmentRobot {
+            clickUsersAction()
             assertEditSearchIsDisplayed()
             waitForCondition(progressBarGoneIdlingResource)
             assertRecyclerViewIsDisplayed()
@@ -62,8 +62,8 @@ class StackExchangeFragmentTest {
                 View.GONE
             )
 
-        launchesFragmentRobot {
-            clickLaunchesTab()
+        stackExchangeFragmentRobot {
+            clickUsersAction()
             waitForCondition(progressBarGoneIdlingResource)
             assertRecyclerViewIsDisplayed()
             assertItemsSize()
@@ -80,8 +80,8 @@ class StackExchangeFragmentTest {
                 View.GONE
             )
 
-        launchesFragmentRobot {
-            clickLaunchesTab()
+        stackExchangeFragmentRobot {
+            clickUsersAction()
             waitForCondition(progressBarGoneIdlingResource)
             assertBodyErrorDisplayed()
         }
